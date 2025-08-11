@@ -1,0 +1,107 @@
+
+<style>
+    /* Container styling */
+    .cart-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    .cart-card {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        text-align: center;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .cart-card:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Image styling */
+    .cart-card img {
+        width: 100%;
+        height: auto;
+        max-width: 250px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Text styling */
+    .cart-text {
+        font-size: 18px;
+        margin: 8px 0;
+    }
+
+    /* Highlighted text */
+    .cart-text b {
+        color: #37517e;
+    }
+
+    /* Input and button styling */
+    .cart-card input[type="text"],
+    .cart-card button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .cart-card input[type="text"] {
+        background-color: #eef2f3;
+        color: #333;
+    }
+
+    .cart-card button {
+        background-color: #37517e;
+        color: #ffffff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .cart-card button:hover {
+        background-color: #37517e;
+    }
+</style>
+
+<div class="cart-container">
+    <div class="cart-card">
+        <form action="/add_cart/" method="POST">
+            {% csrf_token %}
+            <h2>My Cart</h2>
+            
+            <!-- Displaying the product image -->
+            <img src="{{ f }}" alt="Product Image">
+            
+            <!-- Displaying product details in structured format -->
+            <p class="cart-text"><b>Name:</b> {{ a }}</p>
+            <p class="cart-text"><b>Category:</b> {{ b }}</p>
+            <p class="cart-text"><b>Price:</b> {{ c }}</p>
+            <p class="cart-text"><b>Discount Price:</b> {{ d }}</p>
+            
+            <!-- Hidden input fields to store product information -->
+            <input type="hidden" name="productname" value="{{ a }}">
+            <input type="hidden" name="producttype" value="{{ b }}">
+            <input type="hidden" name="price" value="{{ c }}">
+            <input type="hidden" name="discount_price" value="{{ d }}">
+            <input type="hidden" name="image" value="{{ f }}">
+
+            <!-- Stock status input -->
+            <label for="stock_status"><b>Stock Status:</b></label>
+            <input type="text" name="stock_status" id="stock_status" placeholder="Enter stock status" required>
+
+            <!-- Submit button -->
+            <button type="submit">Add to Cart</button>
+        </form>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Authentication</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.7), rgba(34, 34, 34, 0.7)), 
+                        url('/static/img/login.jpg') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            transition: all 0.3s ease;
+        }
+
+        .form-container:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container h2 {
+            font-size: 1.8em;
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .form-container label {
+            font-size: 1rem;
+            color: #555;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-container input:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #218838;
+        }
+
+        .form-container a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-container .message {
+            text-align: center;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .register-btn {
+            background-color: #007bff;
+            margin-top: 15px;
+        }
+
+        .register-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ADmin Login Form -->
+<div class="form-container">
+    <h2>Admin Login</h2>
+    <form method="POST"> 
+        {% csrf_token %}
+        {% if msg %}
+            <p class="message">{{ msg }}</p>
+        {% endif %}
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" maxlength="100" required>
+        </div>
+        <button type="submit">LOGIN</button>
+    </form>
+    {% comment %} <button type="submit" class="register-btn"><a href="/userregister/">REGISTER</a></button> {% endcomment %}
+</div>
+
+</body>
+</html>

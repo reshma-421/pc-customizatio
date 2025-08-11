@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Summary</title>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <ul>
+        {% for item in user_cart %}
+            <li>{{ item.product.name }} - Quantity: {{ item.quantity }} - ${{ item.total_price }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Total Price: ${{ total_price }}</h3>
+    <a href="{% url 'build_pc' %}">Back to PC Builder</a> <!-- Link to return to the builder page -->
+</body>
+</html>

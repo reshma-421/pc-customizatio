@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Purchase</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* Light blue background */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            color: #1e88e5; /* Darker blue for the title */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .payment-button {
+            background-color: #1976d2; /* Blue button color */
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .payment-button:hover {
+            background-color: #1565c0; /* Darker blue on hover */
+        }
+
+        .back-button {
+            background-color: #f44336; /* Red button color */
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #d32f2f; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <h2>Complete Your Purchase</h2>
+    <p>Total Amount: ₹{{ price }}</p>
+
+    <button type="button" class="payment-button" onclick="openRazorpay()">Pay Now</button>
+
+    <!-- Back to Cart Button -->
+    <button type="button" class="back-button" onclick="window.location.href='{% url 'my_cart' %}'">Back to Cart</button>
+
+    <script>
+        function openRazorpay() {
+            const razorpayOptions = {
+                "key": "{{ razorpay_key_id }}",
+                "amount": "{{ payment.amount }}", // amount in paise
+                "currency": "INR",
+                "name": "Your Store Name",
+                "description": "Purchase Description",
+                "image": "{% static 'images/your_logo.png' %}",
+                "order_id": "{{ payment.id }}", // Razorpay order ID
+                "handler": function (response) {
+                    alert("Payment successful!\nPayment ID: " + response.razorpay_payment_id);
+                    // Optional: redirect or make a post-payment API call here
+                },
+                "modal": {
+                    "ondismiss": function () {
+                        alert("Payment cancelled");
+                    }
+                },
+                "theme": {
+                    "color": "#1e88e5" /* Blue theme color */
+                }
+            };
+
+            const razorpay = new Razorpay(razorpayOptions);
+            razorpay.open();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category.name }} Products</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Products in {{ category.name }}</h1>
+    </header>
+    <main>
+        <ul>
+            {% for product in products %}
+                <li>
+                    <h3>{{ product.name }}</h3>
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <p>Price: ${{ product.price }}</p>
+                    {% if product.discount_price %}
+                        <p>Discount Price: ${{ product.discount_price }}</p>
+                    {% endif %}
+                    <p>Description: {{ product.description }}</p>
+                    {% if product.rating %}
+                        <p>Rating: {{ product.rating }}</p>
+                    {% endif %}
+                    <p>Status: 
+                        {% if product.stock_status %}
+                            In Stock
+                        {% else %}
+                            Out of Stock
+                        {% endif %}
+                    </p>
+                </li>
+            {% empty %}
+                <li>No products available in this category.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'category_list' %}">Back to Categories</a>
+    </main>
+</body>
+</html>

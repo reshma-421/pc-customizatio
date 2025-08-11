@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom PC Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #e0f7fa; /* Light blue background */
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+
+        .product-category {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-category h2 {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        select, input {
+            width: 48%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fafafa;
+            margin-right: 2%;
+        }
+
+        input[type="number"] {
+            width: 48%;
+        }
+
+        select:focus, input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .selected-image {
+            margin-top: 10px;
+            max-width: 150px;
+            height: auto;
+            display: none;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #summary-section {
+            display: none;
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #summary-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #summary-section ul li {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .total-price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .product-category + .product-category {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form action="{% url 'add_to_cart' %}" method="POST">
+        {% csrf_token %}
+        <h1>Build Your Custom PC</h1>
+    
+        {% for category_name, products in products_by_category.items %}
+            <div id="{{ category_name|lower }}-selection" class="product-category">
+                <h2>Select {{ category_name }}</h2>
+                <select name="product_{{ category_name|lower }}" id="{{ category_name|lower }}" onchange="updateSelection('{{ category_name }}', '{{ category_name|lower }}')">
+                    <option value="">-- Choose {{ category_name }} --</option>
+                    <option value="none" data-img="">None</option> <!-- Null option -->
+                    {% for product in products %}
+                        <option value="{{ product.id }}" data-price="{{ product.price }}" data-img="{{ product.image.url }}">{{ product.name }} - ${{ product.price }}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" name="quantity_{{ category_name|lower }}" id="{{ category_name|lower }}-quantity" value="1" min="1" style="display: none;" onchange="updateSelection('{{ category_name }}', '{{ category_name|lower }}')" />
+                <img id="{{ category_name|lower }}-image" class="selected-image" src="" alt="Selected {{ category_name }} Image" />
+            </div>
+        {% endfor %}
+    
+        <input type="hidden" name="product_ids" id="product_ids" value="" />
+        <input type="hidden" name="quantities" id="quantities" value="" />
+    
+        <div id="summary-section">
+            <h2>Selected Products:</h2>
+            <ul id="selected-products" class="product-list"></ul>
+            <div class="total-price" id="total-price">
+                Total Price: $0
+            </div>
+            <button type="submit">Add to Cart</button>
+        </div>
+    </form>
+    
+    <script>
+        let selectedProducts = [];  
+        let quantities = [];        
+    
+        function updateSelection(categoryName, selectId) {
+            const selectElement = document.getElementById(selectId);
+            const quantityElement = document.getElementById(selectId + '-quantity');
+            const selectedValue = selectElement.value;
+            const selectedQuantity = quantityElement.value;
+    
+            if (selectedValue && selectedValue !== "none") {
+                if (!selectedProducts.includes(selectedValue)) {
+                    selectedProducts.push(selectedValue);
+                    quantities.push(selectedQuantity);
+                }
+    
+                document.getElementById('product_ids').value = selectedProducts.join(',');
+                document.getElementById('quantities').value = quantities.join(',');
+            }
+        }
+    </script>
+    
+    <script>
+        let currentSelectionIndex = 0;
+        const categories = {{ products_by_category|length }};
+        let totalPrice = 0;
+
+        function updateSelection(categoryName, selectId) {
+            const selectElement = document.getElementById(selectId);
+            const quantityElement = document.getElementById(selectId + '-quantity');
+            const selectedValue = selectElement.value;
+            const selectedImage = selectElement.options[selectElement.selectedIndex].getAttribute('data-img');
+            const imageElement = document.getElementById(selectId + '-image');
+            const selectedPrice = parseFloat(selectElement.options[selectElement.selectedIndex].getAttribute('data-price')) || 0;
+            const selectedQuantity = quantityElement.value;
+
+            if (selectedValue && selectedValue !== "none") { 
+                totalPrice += selectedPrice * selectedQuantity;
+                const selectedProductsList = document.getElementById('selected-products');
+                const existingItem = document.getElementById(`selected-${selectId}`);
+
+                if (existingItem) {
+                    existingItem.textContent = `${categoryName}: ${selectedValue} (Quantity: ${selectedQuantity}) - $${selectedPrice * selectedQuantity}`;
+                } else {
+                    const listItem = document.createElement('li');
+                    listItem.id = `selected-${selectId}`;
+                    listItem.textContent = `${categoryName}: ${selectedValue} (Quantity: ${selectedQuantity}) - $${selectedPrice * selectedQuantity}`;
+                    selectedProductsList.appendChild(listItem);
+                }
+
+                if (selectedImage) {
+                    imageElement.src = selectedImage;
+                    imageElement.alt = `Image of ${selectedValue}`;
+                    imageElement.style.display = 'block';
+                } else {
+                    imageElement.style.display = 'none';
+                }
+
+                quantityElement.style.display = 'block';
+                currentSelectionIndex++;
+                if (currentSelectionIndex < categories) {
+                    const nextCategory = document.querySelectorAll('.product-category')[currentSelectionIndex];
+                    nextCategory.style.display = 'block';
+                }
+
+                if (currentSelectionIndex === categories) {
+                    document.getElementById('summary-section').style.display = 'block';
+                }
+
+                document.getElementById('total-price').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+            } else {
+                totalPrice -= selectedPrice * selectedQuantity;
+                const existingItem = document.getElementById(`selected-${selectId}`);
+                if (existingItem) {
+                    existingItem.remove();
+                }
+
+                if (imageElement) {
+                    imageElement.style.display = 'none';
+                }
+
+                currentSelectionIndex++;
+                if (currentSelectionIndex < categories) {
+                    const nextCategory = document.querySelectorAll('.product-category')[currentSelectionIndex];
+                    nextCategory.style.display = 'block';
+                }
+
+                if (currentSelectionIndex === categories) {
+                    document.getElementById('summary-section').style.display = 'block';
+                }
+
+                document.getElementById('total-price').textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+            }
+        }
+
+        function addToCart() {
+            alert("All selected products have been added to your cart!");
+        }
+    </script>
+</body>
+</html>

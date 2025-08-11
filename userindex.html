@@ -1,0 +1,409 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.6;
+      color: #333;
+  }
+  
+  header {
+      background: #282c34;
+      padding: 20px 0;
+      color: #fff;
+  }
+  
+  .sitename {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+  }
+  
+  .navmenu ul {
+      list-style: none;
+  }
+  
+  .navmenu ul li {
+      display: inline-block;
+      margin: 0 15px;
+  }
+  
+  .navmenu ul li a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s;
+  }
+  
+  .navmenu ul li a:hover {
+      color: #61dafb; /* Change color on hover */
+  }
+  
+  .hero {
+      background: url("/static/img/buildpc.jpg") no-repeat center center;
+      background-size: cover;
+      color: white;
+      padding: 60px 0;
+  }
+  
+  .btn-get-started {
+      background: #61dafb;
+      color: #333;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background 0.3s;
+  }
+  
+  .btn-get-started:hover {
+      background: #21a1f1; /* Darker shade on hover */
+  }
+  
+  .footer {
+      background: #282c34;
+      color: #fff;
+      padding: 40px 0;
+  }
+  
+  .footer a {
+      color: #61dafb;
+      text-decoration: none;
+  }
+  
+  .footer a:hover {
+      text-decoration: underline;
+  }
+  
+  .scroll-top {
+      background: #61dafb;
+      color: #333;
+  }
+
+  .loading {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.error-message, .sent-message {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    margin-top: 20px;
+}
+.btn-getstarted {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            background-color: #007bff; /* Button background color */
+            color: white; /* Button text color */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-getstarted:hover {
+            background-color: #0056b3; /* Darker shade for hover effect */
+            transform: scale(1.05); /* Slight zoom effect on hover */
+        }
+
+        .btn-getstarted:active {
+            background-color: #003f7f; /* Even darker shade for active state */
+            transform: scale(1); /* Reset zoom effect when clicked */
+        }
+
+
+
+</style>
+  
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>USER INDEX</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/main.css'%}"  rel="stylesheet">
+
+ 
+</head>
+
+<body class="index-page">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="{ % static '/img/logo.png' %}" alt=""> -->
+        <h1 class="sitename">PC Build</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+         
+         <!-- <li><a href="/userlogin/">LOGIN</a></li>-->
+          <li><a href="/profile/">Profile</a></li>
+          <li><a href="/categories/">Customize</a></li>
+          <li><a href="/prebuild_list/">Pre Build</a></li>
+          <li><a href="/my_cart/">Cart</a></li>
+          <li><a href="/feedback_rate/">Feedback</a></li>
+          <li><a href="/userlogout/">Logout</a></li>
+          <!--<li><a href="/payment/">payment</a></li>-->
+          {% comment %} <li><a href="/pricing/">Pricing</a></li>
+          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="#">Dropdown 1</a></li>
+              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a href="#">Deep Dropdown 1</a></li>
+                  <li><a href="#">Deep Dropdown 2</a></li>
+                  <li><a href="#">Deep Dropdown 3</a></li>
+                  <li><a href="#">Deep Dropdown 4</a></li>
+                  <li><a href="#">Deep Dropdown 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Dropdown 2</a></li>
+              <li><a href="#">Dropdown 3</a></li>
+              <li><a href="#">Dropdown 4</a></li>
+            </ul>
+          </li>
+       
+        </ul> {% endcomment %}
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        
+      </nav>
+
+      {% comment %} <a class="btn-getstarted" href="#about">Get Started</a> {% endcomment %}
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
+            <h1>"Your PC, Your Rules."</h1>
+            <p>We are team of talented designers making your dream PC</p>
+            <div class="d-flex">
+              <a href="https://youtu.be/u2PKmJkAtH0?si=VVOCix0alrHGuk5L" class="glightbox btn-watch-video d-flex align-items-center">
+                <i class="bi bi-play-circle"></i><span>Watch Video</span>
+              </a>
+              
+              <a href="/temp/" class="relative flex items-center gap-4 px-9 py-4 text-lg font-semibold text-[#adff2f] border-4 border-transparent rounded-full bg-transparent cursor-pointer overflow-hidden group transition-all duration-600 ease-[cubic-bezier(0.23,_1,_0.32,_1)]">
+  
+                <!-- SVG Icon -->
+                <svg class="absolute w-6 fill-[#adff2f] z-10 transition-all duration-800 ease-[cubic-bezier(0.23,_1,_0.32,_1)] group-hover:fill-[#212121]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L16 6H13V10H11V6H8L12 2Z"></path></svg>
+              
+                <!-- Circle Animation -->
+                <span class="absolute top-1/2 left-1/2 w-5 h-5 bg-[#adff2f] rounded-full opacity-0 transition-all duration-800 ease-[cubic-bezier(0.23,_1,_0.32,_1)] group-hover:w-[220px] group-hover:h-[220px] group-hover:opacity-100 transform -translate-x-1/2 -translate-y-1/2"></span>
+              
+                <!-- Button Text -->
+                <span class="relative z-10 group-hover:translate-x-3 transition-all duration-800 ease-[cubic-bezier(0.23,_1,_0.32,_1)]">Build your Pc</span>
+              
+                <!-- Arrows -->
+                <span class="absolute right-4 group-hover:right-[-25%] transition-all duration-800 ease-[cubic-bezier(0.23,_1,_0.32,_0.32)]">→</span>
+                <span class="absolute left-[-25%] group-hover:left-4 transition-all duration-800 ease-[cubic-bezier(0.23,_1,_0.32,_0.32)]">←</span>
+              </a>
+              
+              
+              
+            </div>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="200">
+            <img src="{ % static '/img/hero-img.png' %}" class="img-fluid animated" alt="">
+          </div>
+        </div>
+      </div>
+    
+    
+    </section>
+    
+    <!-- Clients Section -->
+    <section id="clients" class="clients section light-background">
+
+      <div class="container" data-aos="zoom-in">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 2,
+                  "spaceBetween": 40
+                },
+                "480": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 60
+                },
+                "640": {
+                  "slidesPerView": 4,
+                  "spaceBetween": 80
+                },
+                "992": {
+                  "slidesPerView": 5,
+                  "spaceBetween": 120
+                },
+                "1200": {
+                  "slidesPerView": 6,
+                  "spaceBetween": 120
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper align-items-center">
+            <div class="swiper-slide"><img src="{ % static '/img/clients/client-1.png'%}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{ % static '/img/clients/client-2.png'%}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{ % static '/img/clients/client-3.png'%}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{ % static '/img/clients/client-4.png'%}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{ % static '/img/clients/client-5.png'%}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{ % static '/img/clients/client-6.png'%}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{ % static '/img/clients/client-7.png'%}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{ % static '/img/clients/client-8.png'%}" class="img-fluid" alt=""></div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Clients Section -->
+
+   
+
+    <!-- Contact Section -->
+    
+    
+        
+        
+      
+
+  <footer id="footer" class="footer">
+
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-6">
+            <h4>CUSTOM PC CONFIGURATOR CHOOSE YOUR PC PARTS!</h4>
+            <p>The PC. configurator of Pc Componentes is the perfect tool for you to choose one by one the parts of your computer and try different configurations and budgets. Its use is very simple and intuitive, and in a few steps, you can assemble a computer by parts completely to your liking. Get your basic, gaming or professional desktop pc at the best price and for you. Can you ask for more? You can check the characteristics of the article and its availability by clicking on its name.</p>
+            {% comment %} <form action="forms/newsletter.php" method="post" class="php-email-form">
+              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+            </form> {% endcomment %}
+            <a class="btn-getstarted" href="/categories/">Buy Now</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="d-flex align-items-center">
+            <span class="sitename">Arsha</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>A108 Adam Street</p>
+            <p>New York, NY 535022</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+            <p><strong>Email:</strong> <span>info@example.com</span></p>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Web Design</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Web Development</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Product Management</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Marketing</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+          <h4>Follow Us</h4>
+          <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+          <div class="social-links d-flex">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%} "></script>
+  <script src="{% static 'vendor/php-email-form/validate.js'%}" ></script>
+  <script src="{% static 'vendor/aos/aos.js'%}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js'%}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js'%}"></script>
+  <script src="{% static 'vendor/waypoints/noframework.waypoints.js'%}"></script>
+  <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js'%}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'js/main.js'%}"></script>
+
+</body>
+
+</html>

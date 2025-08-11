@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Page - PC Customization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .header {
+            background-color: #34495E;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .component-list, .summary {
+            width: 48%;
+        }
+
+        .component-list h2, .summary h2 {
+            margin-bottom: 20px;
+        }
+
+        .component-card {
+            background-color: #ECF0F1;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .component-card h3 {
+            margin: 0;
+        }
+
+        .component-price {
+            font-weight: bold;
+        }
+
+        .total-summary {
+            background-color: #ECF0F1;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .total-summary h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .total-summary p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #27AE60;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background-color: #2ECC71;
+        }
+
+        .pre-built-section {
+            margin-top: 40px;
+        }
+
+        .pre-built-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .pre-built-card {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pre-built-card h3 {
+            margin: 0;
+        }
+
+        .pre-built-price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .compatibility-check {
+            background-color: #F39C12;
+            padding: 10px;
+            color: white;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Pricing Estimator</h1>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content">
+            <!-- Selected Components -->
+            <div class="component-list">
+                <h2>Selected Components</h2>
+
+                <!-- Individual Component Cards -->
+                <div class="component-card">
+                    <div>
+                        <h3>Intel i7-13700K</h3>
+                        <p>Retailer: Amazon</p>
+                    </div>
+                    <div class="component-price">$350.00</div>
+                </div>
+
+                <div class="component-card">
+                    <div>
+                        <h3>NVIDIA RTX 3080</h3>
+                        <p>Retailer: Newegg</p>
+                    </div>
+                    <div class="component-price">$1,200.00</div>
+                </div>
+
+                <div class="component-card">
+                    <div>
+                        <h3>MSI Z690 Motherboard</h3>
+                        <p>Retailer: BestBuy</p>
+                    </div>
+                    <div class="component-price">$250.00</div>
+                </div>
+
+                <!-- Compatibility Check -->
+                <div class="compatibility-check">
+                    <p>All components are compatible.</p>
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div class="summary">
+                <h2>Price Summary</h2>
+
+                <!-- Total Price Breakdown -->
+                <div class="total-summary">
+                    <h3>Total Price</h3>
+                    <p>CPU: $350.00</p>
+                    <p>GPU: $1,200.00</p>
+                    <p>Motherboard: $250.00</p>
+                    <h3>Total: $1,800.00</h3>
+                </div>
+
+                <!-- CTA Button -->
+                <a href="/payment/" class="cta-button">Proceed to Checkout</a>
+
+            </div>
+        </div>
+
+        <!-- Pre-built Configurations Section -->
+        <div class="pre-built-section">
+            <h2>Pre-built Configurations</h2>
+
+            <!-- Pre-built PC Cards -->
+            <div class="pre-built-card">
+                <div>
+                    <h3>Gaming Beast Build</h3>
+                    <p>Intel i9, 32GB RAM, RTX 4090</p>
+                </div>
+                <div class="pre-built-price">$3,200.00</div>
+            </div>
+
+            <div class="pre-built-card">
+                <div>
+                    <h3>Budget Builder</h3>
+                    <p>AMD Ryzen 5, 16GB RAM, GTX 1660</p>
+                </div>
+                <div class="pre-built-price">$950.00</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

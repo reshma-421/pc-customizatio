@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(34, 34, 34, 0.8)), 
+                        url('/static/img/computer.jpeg'); /* Use relative path */
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s;
+        }
+
+        .profile-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-container img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 3px solid #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        .profile-container h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .profile-detail {
+            text-align: left;
+            padding: 0 10px;
+        }
+
+        .profile-detail strong {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        /* Style for input fields */
+        .profile-detail input[type="text"],
+        .profile-detail input[type="email"],
+        .profile-detail input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-detail input[type="text"]:focus,
+        .profile-detail input[type="email"]:focus,
+        .profile-detail input[type="number"]:focus {
+            background-color: rgba(255, 255, 255, 0.3); /* Slightly brighter background on focus */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <h2>User Profile</h2>
+    {% if usr.image %}
+        <img src="{{ usr.image.url }}" alt="Profile Image">
+    {% else %}
+        <img src="/static/default-avatar.png" alt="Default Avatar"> <!-- Placeholder image -->
+    {% endif %}
+    
+    <div class="profile-detail">
+        <p><strong>First Name:</strong></p>
+        <input type="text" value="{{ usr.firstname }}" readonly>
+        <p><strong>Last Name:</strong></p>
+        <input type="text" value="{{ usr.lastname }}" readonly>
+        <p><strong>Email:</strong></p>
+        <input type="email" value="{{ usr.email }}" readonly>
+        <p><strong>Age:</strong></p>
+        <input type="number" value="{{ usr.age }}" readonly>
+        
+        <a href="/editprofile/{{ usr.id }}/">
+            <button>EDIT</button>
+        </a>
+        <a href="/userindex/">
+            <button>Back</button>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

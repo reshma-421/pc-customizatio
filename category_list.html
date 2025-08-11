@@ -1,0 +1,119 @@
+<div class="container my-5">
+    <h1 class="text-center mb-4" style="font-weight: 700; color: #333;">Explore Our Categories</h1>
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
+            <div class="card category-card h-100 shadow-sm border-0">
+                <div class="category-img-container position-relative">
+                    <img src="{{ category.image.url }}" class="card-img-top category-img rounded-top" alt="{{ category.name }}" onclick="redirectToCategory('{{ category.id }}')">
+                    <div class="overlay">
+                        <button class="btn btn-light view-btn" onclick="redirectToCategory('{{ category.id }}')">Explore</button>
+                    </div>
+                </div>
+                <div class="card-body text-center d-flex flex-column">
+                    <h6 class="card-title mt-2">{{ category.name }}</h6>
+                    <p class="card-text text-muted small">Discover {{ category.name }}.</p>
+                    <a href="{% url 'product-list' category.id %}" class="btn btn-sm btn-primary mt-auto">View More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    /* Container styles */
+    .container {
+        background: #f1f4f8;
+        border-radius: 15px;
+        padding: 2rem;
+    }
+
+    /* Card styles */
+    .category-card {
+        border-radius: 12px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: #ffffff;
+        overflow: hidden;
+        padding: 0.5rem;
+    }
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Image styles */
+    .category-img-container {
+        position: relative;
+        overflow: hidden;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+    .category-img {
+        height: 140px;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+    .category-img:hover {
+        transform: scale(1.05);
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .category-img-container:hover .overlay {
+        opacity: 1;
+    }
+    .view-btn {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid #fff;
+        padding: 0.3rem 0.7rem;
+        font-size: 0.85rem;
+    }
+    .view-btn:hover {
+        background: #007bff;
+        color: #fff;
+    }
+
+    /* Text styles */
+    .card-title {
+        font-size: 1.1rem;
+        color: #333;
+        font-weight: 600;
+    }
+    .card-text {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 0.3rem;
+    }
+
+    /* Button styles */
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        font-weight: 500;
+        transition: background-color 0.2s ease-in-out;
+        padding: 0.4rem 1rem;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<script>
+    // JavaScript function to redirect to the category page when the image is clicked
+    function redirectToCategory(categoryId) {
+        window.location.href = "{% url 'product-list' 0 %}".replace("0", categoryId);
+    }
+</script>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <style>
+        /* Your existing CSS */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(34, 34, 34, 0.8)), 
+                        url('/static/img/computer.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s;
+        }
+        .profile-container:hover {
+            transform: translateY(-5px);
+        }
+        .profile-container img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 3px solid #4CAF50;
+            margin-bottom: 30px;
+        }
+        .profile-container h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .profile-detail {
+            text-align: left;
+            padding: 0 10px;
+        }
+        .profile-detail strong {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        /* Style for input fields */
+        .profile-detail input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 16px;
+            outline: none;
+            transition: background-color 0.3s ease;
+        }
+        .profile-detail input:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <form method="POST" enctype="multipart/form-data"> <!-- Corrected enctype -->
+        {% csrf_token %}
+        <h2>Edit Profile</h2>
+        {% if edt.image %}
+            <img src="{{ edt.image.url }}" alt="Profile Image">
+        {% else %}
+            <img src="default-avatar.png" alt="Default Avatar"> <!-- Placeholder image -->
+        {% endif %}
+        <input type="file" name="img">
+        <div class="profile-detail">
+            <p><strong>First Name:</strong></p>
+            <input type="text" value="{{ edt.firstname }}" name="firstname">
+
+            <p><strong>Last Name:</strong></p>
+            <input type="text" value="{{ edt.lastname }}" name="lastname">
+
+            <p><strong>Email:</strong></p>
+            <input type="email" value="{{ edt.email }}" name="email">
+
+            <p><strong>Age:</strong></p>
+            <input type="number" value="{{ edt.age }}" name="age">
+
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
